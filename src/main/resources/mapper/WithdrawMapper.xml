@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.ncu.BlockChainCharity.mapper.WithdrawMapper">
+
+    <insert id="insertWithDrawRecord" keyProperty="withdrawId" useGeneratedKeys="true">
+        insert into `withdraw_record` ( `charity_key`, `project_key`, `amount`, `bank_name`, `bank_id_card`, `name`, `id_card`, `comment`, `datetime`,`state`)
+            VALUES (#{charityKey}, #{projectKey}, #{amount}, #{bank_name}, #{bank_id_card}, #{name}, #{id_card}, #{comment},#{datetime},  #{state})
+    </insert>
+
+    <update id="updateWithDrawRecord">
+        update `withdraw_record` set `withdraw_key`=#{withdrawKey} where `withdraw_id`=#{withdrawId}
+    </update>
+
+    <update id="updateWithdrawRecordTransaction">
+        update `withdraw_record` set `transaction_id` = #{transactionId} where `withdraw_id` = #{withdrawId}
+    </update>
+
+</mapper>

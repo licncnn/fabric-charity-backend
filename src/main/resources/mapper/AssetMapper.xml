@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.ncu.BlockChainCharity.mapper.AssetMapper">
+
+    <!-- 插入一条资产记录 -->
+    <insert id="insertAsset" keyProperty="assetId" useGeneratedKeys="true">
+        INSERT INTO Asset ( projectKey, uid, value)
+        VALUES (#{projectKey}, #{uid}, #{value})
+    </insert>
+
+    <!-- 根据 withdrawId 更新 AssetKey 字段 -->
+    <update id="updateAssetKeyBywithdrawId">
+        UPDATE Asset
+        SET AssetKey = #{assetKey}
+        WHERE assetId = #{assetId}
+    </update>
+
+
+    <update id="updateAssetTransaction1">
+        update `Asset` set `transactionId1` = #{transactionId} where `AssetKey` = #{assetKey}
+    </update>
+
+    <update id="updateAssetTransaction2">
+        update `Asset` set `transactionId2` = #{transactionId} where `AssetKey` = #{assetKey}
+    </update>
+
+    <update id="updateAssetSpentStatus">
+        UPDATE Asset
+        SET has_spent = #{spentStatus}
+        WHERE AssetKey = #{assetKey}
+    </update>
+
+    <!-- 根据 projectKey 查询资产记录 -->
+    <select id="selectAssetByprojectKey" parameterType="java.lang.String" resultType="org.ncu.BlockChainCharity.bean.Asset">
+        SELECT *
+        FROM Asset
+        WHERE projectKey = #{projectKey}
+    </select>
+
+    <select id="selectAssetNotSpentByprojectKey" parameterType="java.lang.String" resultType="org.ncu.BlockChainCharity.bean.Asset">
+        SELECT *
+        FROM Asset
+        WHERE projectKey = #{projectKey} and has_spent = '0'
+    </select>
+
+    <!-- 根据 uid 查询资产记录 -->
+    <select id="selectAssetByUid" parameterType="java.lang.String" resultType="org.ncu.BlockChainCharity.bean.Asset">
+        SELECT *
+        FROM Asset
+        WHERE uid = #{uid}
+    </select>
+
+</mapper>
