@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ncu.BlockChainCharity.mapper.ExpenseMapper">
+
+    <insert id="insertExpense" keyProperty="expenseId" useGeneratedKeys="true">
+        insert into `expense`(`project_key`,`amount`,`comment`,`create_time`,`material_path`)
+                    values(#{projectKey},#{amount},#{comment},#{createTime},#{expenseMaterialPath})
+    </insert>
+    <update id="updateExpense">
+        update `expense` set `expense_key` = #{expenseKey} where `expense_id` = #{expenseId}
+    </update>
+
+    <update id="updateExpenseTransaction">
+        update `expense` set `transaction_id` = #{transactionId} where `expense_id` = #{expenseId}
+    </update>
+
+    <select id="getImagePathByExpenseKey" resultType="java.lang.String">
+        select material_path from expense where expense_key=#{expenseKey}
+    </select>
+    <select id="getTransactionIdByExpenseKey" resultType="java.lang.String">
+        select transaction_id from expense where expense_key=#{expenseKey}
+    </select>
+
+
+</mapper>
